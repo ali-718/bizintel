@@ -22,9 +22,11 @@ export default class Post extends Component {
         {/* <a></a> <button onClick> */}
 
         <View style={{ marginTop: 20, alignItems: "center" }}>
-          <TouchableOpacity onPress={this.props.onAlertClick}>
+          <TouchableOpacity
+            onPress={() => this.props.onAlertClick(this.props.name)}
+          >
             <View style={styles.btn}>
-              <Text>Click</Text>
+              <Text>delete</Text>
             </View>
           </TouchableOpacity>
         </View>
