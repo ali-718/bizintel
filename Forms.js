@@ -24,6 +24,15 @@ export default class Forms extends Component {
   //   });
   // };
 
+  componentDidMount() {
+    console.log("i am compnent did mount");
+  }
+
+  // 2. when our UI updates
+  componentDidUpdate() {
+    console.log(" i am updating");
+  }
+
   render() {
     return (
       <SafeAreaView

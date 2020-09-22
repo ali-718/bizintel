@@ -11,6 +11,8 @@ import Post from "./components/Post";
 import Forms from "./Forms";
 
 export default class App extends Component {
+  // componentdidmount
+
   onClickButton = (index) => {
     console.log(index);
 
@@ -68,7 +70,14 @@ export default class App extends Component {
   };
 
   render() {
-    return <Forms />;
+    return (
+      <Post
+        name={this.state.name}
+        para="i am a good boy"
+        onAlertClick={() => this.setState({ name: "hidayat" })}
+        onActiveClick={() => this.setState({ name: "usama" })}
+      />
+    );
   }
 }
 

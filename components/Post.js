@@ -2,6 +2,15 @@ import React, { Component } from "react";
 import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 export default class Post extends Component {
+  componentWillReceiveProps(props) {
+    console.log(props);
+    // this.setState({ img: props.profile.img });
+  }
+
+  state = {
+    img: "",
+  };
+
   render() {
     return (
       <View style={{ marginTop: 30, width: "100%", padding: 10 }}>
@@ -27,6 +36,14 @@ export default class Post extends Component {
           >
             <View style={styles.btn}>
               <Text>delete</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => this.props.onActiveClick(this.props.name)}
+          >
+            <View style={styles.btn}>
+              <Text>active</Text>
             </View>
           </TouchableOpacity>
         </View>
