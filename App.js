@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  TextInput,
+  SafeAreaView,
 } from "react-native";
 import Post from "./components/Post";
 import Forms from "./Forms";
@@ -28,8 +30,40 @@ export default class App extends Component {
     console.log(name);
   };
 
+  onSubmitData = () => {
+    const check = this.state.data.filter(
+      (item) => item.name.toLowerCase() == this.state.MyName.toLowerCase()
+    ).length;
+
+    if (check > 0) {
+      alert("User already exist");
+      return;
+    }
+
+    this.setState({
+      data: [
+        ...this.state.data,
+        { name: this.state.MyName, age: this.state.MyAge },
+      ],
+      MyName: "",
+      MyAge: "",
+    });
+  };
+
   state = {
+    MyName: "",
+    MyAge: "",
     name: "Ali",
+    data: [
+      {
+        name: "Ali Hiader",
+        age: 22,
+      },
+      {
+        name: "Hidayat",
+        age: 28,
+      },
+    ],
     posts: [
       {
         title: "Ali Haider",
@@ -71,42 +105,74 @@ export default class App extends Component {
 
   render() {
     return (
-      <Post
-        name={this.state.name}
-        para="i am a good boy"
-        onAlertClick={() => this.setState({ name: "hidayat" })}
-        onActiveClick={() => this.setState({ name: "usama" })}
-      />
+      <SafeAreaView
+        style={{
+          width: "100%",
+          alignItems: "center",
+          flex: 1,
+        }}
+      >
+        <TextInput
+          placeholder="Name"
+          style={{
+            borderWidth: 1,
+            borderRadius: 10,
+            borderColor: "gray",
+            borderStyle: "solid",
+            padding: 15,
+            width: "90%",
+          }}
+          value={this.state.MyName}
+          onChangeText={(val) => this.setState({ MyName: val })}
+        />
+        <TextInput
+          value={this.state.MyAge}
+          onChangeText={(val) => this.setState({ MyAge: val })}
+          placeholder="Age"
+          style={{
+            borderWidth: 1,
+            borderRadius: 10,
+            borderColor: "gray",
+            borderStyle: "solid",
+            padding: 15,
+            width: "90%",
+            marginTop: 20,
+          }}
+        />
+
+        <TouchableOpacity
+          style={{
+            borderWidth: 1,
+            borderRadius: 10,
+            borderColor: "gray",
+            borderStyle: "solid",
+            padding: 15,
+            width: "90%",
+            marginTop: 20,
+            backgroundColor: "green",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onPress={this.onSubmitData}
+        >
+          <Text>Submit</Text>
+        </TouchableOpacity>
+
+        {this.state.data.map((item, index) => (
+          <View
+            style={{
+              width: "90%",
+              borderRadius: 10,
+              backgroundColor: "gainsboro",
+              padding: 20,
+              marginTop: 20,
+            }}
+          >
+            <Text>{item.name}</Text>
+            <Text style={{ marginTop: 10 }}>{item.age}</Text>
+          </View>
+        ))}
+      </SafeAreaView>
     );
   }
-}
-
-{
-  /* <View style={{ width: "100%", flex: 1, marginTop: 30 }}>
-<Text>{this.state.name}</Text>
-<TouchableOpacity onPress={this.onChangeName}>
-  <Text>click me</Text>
-</TouchableOpacity>
-<ScrollView>
-  {this.state.posts.map((item, index) => (
-    <Post
-      onAlertClick={(name) => this.getName(name)}
-      name={item.title}
-      para={item.para}
-    />
-  ))}
-</ScrollView>
-{/* <input placeholder value  />  */
-}
-{
-  /* flex= 0-1 */
-}
-{
-  /* <View
-  style={{ width: "100%", flex: 0.5, backgroundColor: "red" }}
-></View>
-<View
-  style={{ width: "100%", flex: 0.5, backgroundColor: "blue" }}
-></View>
-</View> */
 }
