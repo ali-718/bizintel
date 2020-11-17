@@ -7,12 +7,23 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Icon } from "native-base";
 
 export default class App extends Component {
   state = {
     data: [],
     Name: "",
     Age: "",
+  };
+
+  onDelete = (name) => {
+    const finalData = this.state.data.filter(
+      (item, i) => item.Name.toLowerCase() != name.toLowerCase()
+    );
+
+    this.setState({ data: finalData });
+
+    console.log(finalData);
   };
 
   onSubmit = () => {
@@ -104,6 +115,19 @@ export default class App extends Component {
               >
                 <Text>Name :- {item.Name}</Text>
                 <Text>Age :- {item.Age}</Text>
+                <View style={{ width: "100%", marginTop: 20 }}>
+                  <TouchableOpacity
+                    onPress={() => this.onDelete(item.Name)}
+                    style={{ flexDirection: "row", alignItems: "center" }}
+                  >
+                    <Icon
+                      style={{ fontSize: 20 }}
+                      name="trash-2"
+                      type="Feather"
+                    />
+                    <Text style={{ marginLeft: 10 }}>delete</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             );
           })}
