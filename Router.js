@@ -17,7 +17,11 @@ export default class Router extends Component {
             name="Home"
             component={Home}
           />
-          <Stack.Screen name="About" component={About} />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="About"
+            component={About}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
